@@ -2,7 +2,7 @@ window.ConectaComponents = window.ConectaComponents || {};
 window.ConectaComponents.sidebar = `<aside class="sidebar">
       <a class="brand" href="../index.html">
         <span class="brand-mark"><span class="iconify" data-icon="ph:rocket-launch-bold"></span></span>
-        <span>Conecta Futuro</span>
+        <span>DevStart</span>
       </a>
 
       <nav class="side-nav">

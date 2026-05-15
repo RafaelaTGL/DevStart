@@ -140,7 +140,7 @@ function openModal(title, body, cta = 'Entendi') {
     <div class="modal-box">
       <div class="modal-head">
         <div>
-          <span class="badge">${icon('ph:sparkle-bold')} Conecta Futuro</span>
+          <span class="badge">${icon('ph:sparkle-bold')} DevStart</span>
           <h2 style="margin-top:12px">${title}</h2>
         </div>
 
