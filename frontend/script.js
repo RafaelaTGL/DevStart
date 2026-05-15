@@ -567,7 +567,7 @@ inputCurriculo?.addEventListener("change", () => {
     `;
 
     try {
-  const resposta = await fetch("http://localhost:3000/analisar-curriculo", {
+  const resposta = await fetch("https://devstart.onrender.com/analisar-curriculo", {
     method: "POST",
     body: dados,
   });
@@ -639,7 +639,7 @@ inputCurriculo?.addEventListener("change", () => {
         <h3>Erro ao analisar currículo</h3>
 
         <p class="lead">
-          ${erro.message || "Verifique se o backend está rodando em http://localhost:3000."}
+          ${erro.message || "Verifique se o backend está rodando em https://devstart.onrender.com."}
         </p>
       </div>
     </article>
