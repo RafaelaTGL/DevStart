@@ -2,166 +2,118 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Início | Conecta Futuro</title>
-  <link rel="stylesheet" href="../style.css">
-  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
+      <meta charset="utf-8" />
+      <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+      <title>
+            Início | Conecta Futuro
+      </title>
+      <link href="../style.css" rel="stylesheet" />
+      <script src="https://code.iconify.design/3/3.1.1/iconify.min.js">
+      </script>
 </head>
 
 <body>
-  <div class="app-shell">
-    <aside class="sidebar">
-      <a class="brand" href="../index.html">
-        <span class="brand-mark"><span class="iconify" data-icon="ph:rocket-launch-bold"></span></span>
-        <span>Conecta Futuro</span>
-      </a>
+      <div class="app-shell">
+            <div data-component="sidebar">
+            </div>
+            <div class="menu-overlay">
+            </div>
+            <main class="app-main">
+                  <div data-component="header">
+                  </div>
+                  <section class="home-dashboard">
+                        <article class="card home-intro-card">
+                              <div class="home-intro-content">
+                                    <h2>
+                                          Inicie sua jornada na tecnologia com mais clareza e direção.
+                                    </h2>
+                                    <p class="lead">
+                                          O Conecta Futuro reúne informações sobre carreiras em TI, cursos gratuitos,
+                                          desenvolvimento profissional,
+                                          currículo, LinkedIn e oportunidades de estágio e primeiro emprego. A
+                                          plataforma foi criada para apoiar
+                                          estudantes e jovens iniciantes no acesso à educação tecnológica, inclusão
+                                          digital e preparação para o mercado
+                                          de trabalho.
+                                    </p>
+                              </div>
 
-      <nav class="side-nav">
-        <a class="active" href="dashboard.html"><span class="iconify" data-icon="lucide:home"></span>Início</a>
-        <a href="cursos.html"><span class="iconify" data-icon="lucide:book-open"></span>Cursos</a>
-        <a href="areas-ti.html"><span class="iconify" data-icon="lucide:network"></span>Áreas da TI</a>
-        <a href="curriculo.html"><span class="iconify" data-icon="lucide:file-user"></span>Currículo</a>
-        <a href="oportunidades.html"><span class="iconify"
-            data-icon="lucide:briefcase-business"></span>Oportunidades</a>
-        <a href="ferramentas.html"><span class="iconify" data-icon="lucide:wrench"></span>Ferramentas</a>
-        <a href="roadmap.html"><span class="iconify" data-icon="lucide:route"></span>Roadmap</a>
-        <a href="contato.html"><span class="iconify" data-icon="lucide:messages-square"></span>Contato</a>
-      </nav>
 
-      <div class="side-card">
-        <div class="feature-icon"><span class="iconify" data-icon="lucide:sparkles"></span></div>
-        <b>Comece com direção</b>
-        <p class="lead" style="font-size:13px;line-height:1.5;margin:8px 0 14px">Use a plataforma para escolher uma
-          área, estudar com foco e encontrar links úteis.</p>
-        <a class="btn btn-secondary" href="areas-ti.html">Explorar áreas</a>
+                        </article>
+
+                        <div class="grid grid-3 home-section-grid">
+                              <article class="card home-feature-card">
+                                    <div class="feature-icon">
+                                          <span class="iconify" data-icon="lucide:code-xml">
+                                          </span>
+                                    </div>
+                                    <h3>
+                                          Explore áreas da tecnologia
+                                    </h3>
+                                    <p class="lead">
+                                          Conheça caminhos como front-end, back-end, dados, suporte, QA, cloud e UX/UI
+                                          para entender melhor as
+                                          possibilidades de atuação na área de TI.
+                                    </p>
+                                    <a class="btn btn-secondary" href="areas-ti.html">
+                                          Explorar áreas
+                                    </a>
+                              </article>
+
+                              <article class="card home-feature-card">
+                                    <div class="feature-icon">
+                                          <span class="iconify" data-icon="lucide:graduation-cap">
+                                          </span>
+                                    </div>
+                                    <h3>
+                                          Acesse cursos gratuitos
+                                    </h3>
+                                    <p class="lead">
+                                          Encontre cursos e conteúdos gratuitos em plataformas externas para desenvolver
+                                          habilidades técnicas e fortalecer
+                                          sua formação na área da tecnologia.
+                                    </p>
+                                    <a class="btn btn-secondary" href="cursos.html">
+                                          Ver cursos
+                                    </a>
+                              </article>
+
+                              <article class="card home-feature-card">
+                                    <div class="feature-icon">
+                                          <span class="iconify" data-icon="lucide:file-user">
+                                          </span>
+                                    </div>
+                                    <h3>
+                                          Prepare sua candidatura
+                                    </h3>
+                                    <p class="lead">
+                                          Analise seu currículo com foco em ATS, identifique pontos de melhoria e
+                                          organize suas informações profissionais
+                                          para se candidatar com mais clareza a vagas de estágio, jovem aprendiz e
+                                          primeiro emprego em tecnologia.
+                                    </p>
+                                    <a class="btn btn-secondary" href="curriculo.html">
+                                          Analisar currículo
+                                    </a>
+                              </article>
+                        </div>
+                  </section>
+            </main>
       </div>
-    </aside>
 
-    <div class="menu-overlay"></div>
+      <div aria-hidden="true" class="modal">
+      </div>
+      <div class="toast">
+      </div>
 
-    <main class="app-main">
-      <header class="topbar glass">
-        <button class="btn-icon mobile-menu" aria-label="Abrir menu"><span class="iconify"
-            data-icon="lucide:menu"></span></button>
-        <label class="search">
-          <span class="iconify" data-icon="lucide:search"></span>
-          <input type="search" placeholder="Buscar na plataforma">
-        </label>
-        <div class="top-actions">
-          <button class="btn-icon theme-toggle" aria-label="Alternar modo claro e escuro" title="Alternar tema"><span
-              class="iconify" data-icon="lucide:moon"></span></button>
-          <div class="profile-chip"><span class="avatar"
-              style="width:34px;height:34px;border-radius:13px">R</span><span>Rafaela</span></div>
-        </div>
-      </header>
-
-      <section class="home-dashboard">
-
-        <article class="card home-intro-card">
-          <div class="home-intro-content">
-            <h2>Construa sua entrada em TI sem estudar tudo ao mesmo tempo.</h2>
-            <p class="lead">O Conecta Futuro organiza conteúdos de carreira, cursos gratuitos externos, tecnologias
-              importantes e links para oportunidades reais. A ideia é servir como uma central inicial para escolher uma
-              área, estudar com foco e se candidatar com mais estratégia.</p>
-            <div class="hero-actions">
-              <a class="btn btn-primary" href="areas-ti.html"><span class="iconify"
-                  data-icon="lucide:compass"></span>Conhecer áreas da TI</a>
-              <a class="btn btn-secondary" href="cursos.html"><span class="iconify"
-                  data-icon="lucide:graduation-cap"></span>Ver cursos gratuitos</a>
-            </div>
-          </div>
-          <div class="home-intro-visual home-map-visual" aria-hidden="true">
-            <div class="map-glow map-glow-one"></div>
-            <div class="map-glow map-glow-two"></div>
-
-            <div class="map-header-card">
-              <span class="map-icon"><span class="iconify" data-icon="lucide:sparkles"></span></span>
-              <div>
-                <b>Central de entrada em TI</b>
-                <small>Uma visão inicial para estudar, explorar e se preparar.</small>
-              </div>
-            </div>
-
-            <div class="map-grid">
-              <div class="map-item">
-                <span class="iconify" data-icon="lucide:compass"></span>
-                <b>Direção</b>
-                <small>Escolha uma área com mais clareza.</small>
-              </div>
-
-              <div class="map-item">
-                <span class="iconify" data-icon="lucide:book-open-check"></span>
-                <b>Estudos</b>
-                <small>Use cursos gratuitos e confiáveis.</small>
-              </div>
-
-              <div class="map-item">
-                <span class="iconify" data-icon="lucide:wrench"></span>
-                <b>Ferramentas</b>
-                <small>Conheça tecnologias importantes.</small>
-              </div>
-
-              <div class="map-item">
-                <span class="iconify" data-icon="lucide:briefcase-business"></span>
-                <b>Carreira</b>
-                <small>Prepare currículo e candidaturas.</small>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <div class="kpi-grid home-kpis">
-          <article class="card kpi">
-            <div class="kpi-top"><span>Cursos externos</span><span class="iconify" data-icon="lucide:book-open"></span>
-            </div><strong>12</strong><span class="trend">gratuitos e confiáveis</span>
-          </article>
-          <article class="card kpi">
-            <div class="kpi-top"><span>Áreas da TI</span><span class="iconify" data-icon="lucide:network"></span></div>
-            <strong>7</strong><span class="trend">para explorar</span>
-          </article>
-          <article class="card kpi">
-            <div class="kpi-top"><span>Ferramentas</span><span class="iconify" data-icon="lucide:wrench"></span></div>
-            <strong>10</strong><span class="trend">base do iniciante</span>
-          </article>
-          <article class="card kpi">
-            <div class="kpi-top"><span>Oportunidades</span><span class="iconify"
-                data-icon="lucide:briefcase-business"></span></div><strong>8</strong><span class="trend">atalhos
-              externos</span>
-          </article>
-        </div>
-
-        <div class="grid grid-3 home-section-grid">
-          <article class="card home-feature-card">
-            <div class="feature-icon"><span class="iconify" data-icon="lucide:map"></span></div>
-            <h3>Escolha uma direção</h3>
-            <p class="lead">Conheça áreas como front-end, back-end, dados, suporte, QA, cloud e UX/UI antes de decidir
-              onde focar.</p>
-            <a class="btn btn-secondary" href="areas-ti.html">Explorar áreas</a>
-          </article>
-          <article class="card home-feature-card">
-            <div class="feature-icon"><span class="iconify" data-icon="lucide:library-big"></span></div>
-            <h3>Estude com links confiáveis</h3>
-            <p class="lead">Acesse cursos gratuitos hospedados em plataformas externas, como Fundação Bradesco, Curso em
-              Vídeo e Microsoft Learn.</p>
-            <a class="btn btn-secondary" href="cursos.html">Ver cursos</a>
-          </article>
-          <article class="card home-feature-card">
-            <div class="feature-icon"><span class="iconify" data-icon="lucide:send"></span></div>
-            <h3>Prepare sua candidatura</h3>
-            <p class="lead">Organize currículo, conheça ferramentas essenciais e encontre atalhos para buscar vagas
-              reais em plataformas externas.</p>
-            <a class="btn btn-secondary" href="curriculo.html">Ver currículo</a>
-          </article>
-        </div>
-
-      </section>
-    </main>
-  </div>
-
-  <div class="modal" aria-hidden="true"></div>
-  <div class="toast"></div>
-  <script src="../script.js"></script>
+      <script src="../components/sidebar.js">
+      </script>
+      <script src="../components/header.js">
+      </script>
+      <script src="../data/courses.js">
+      </script>
+      <script src="../script.js">
+      </script>
 </body>
 
 </html>
