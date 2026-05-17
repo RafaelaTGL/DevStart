@@ -455,6 +455,176 @@ const roadmaps = {
   }
 };
 
+const projects = [
+  {
+    t: "Landing Page SaaS",
+    area: "front-end",
+    level: "iniciante",
+    type: "landing-page",
+    icon: "lucide:layout-template",
+    txt: "Crie uma landing page moderna para um produto digital, com hero, benefícios, cards e CTA.",
+    techs: ["HTML", "CSS", "Responsivo"]
+  },
+  {
+    t: "Dashboard de Estudos",
+    area: "front-end",
+    level: "iniciante",
+    type: "dashboard",
+    icon: "lucide:layout-dashboard",
+    txt: "Monte um painel para acompanhar metas, progresso semanal, cursos e tarefas de estudo.",
+    techs: ["HTML", "CSS", "JavaScript"]
+  },
+  {
+    t: "Lista de Tarefas com LocalStorage",
+    area: "front-end",
+    level: "iniciante",
+    type: "crud",
+    icon: "lucide:list-checks",
+    txt: "Crie uma lista de tarefas com adicionar, editar, concluir, excluir e salvar no navegador.",
+    techs: ["JavaScript", "DOM", "LocalStorage"]
+  },
+  {
+    t: "Sistema de Biblioteca",
+    area: "full-stack",
+    level: "intermediario",
+    type: "crud",
+    icon: "lucide:library-big",
+    txt: "Desenvolva um sistema para cadastrar livros, autores, categorias e controlar empréstimos.",
+    techs: ["HTML", "CSS", "Node.js", "SQL"]
+  },
+  {
+    t: "API de Currículos",
+    area: "back-end",
+    level: "intermediario",
+    type: "api",
+    icon: "lucide:file-user",
+    txt: "Crie uma API para cadastrar, listar, atualizar e remover currículos de candidatos.",
+    techs: ["Node.js", "Express", "REST"]
+  },
+  {
+    t: "Analisador ATS com IA",
+    area: "ia",
+    level: "avancado",
+    type: "api",
+    icon: "lucide:brain-circuit",
+    txt: "Construa uma aplicação que recebe currículo, envia para IA e retorna score ATS com melhorias.",
+    techs: ["Node.js", "Multer", "Groq API"]
+  },
+  {
+    t: "Controle Financeiro",
+    area: "full-stack",
+    level: "intermediario",
+    type: "dashboard",
+    icon: "lucide:wallet",
+    txt: "Crie um painel para registrar entradas, saídas, categorias e resumo financeiro mensal.",
+    techs: ["JavaScript", "Gráficos", "CRUD"]
+  },
+  {
+    t: "Buscador de Vagas",
+    area: "front-end",
+    level: "intermediario",
+    type: "portfolio",
+    icon: "lucide:briefcase-business",
+    txt: "Monte uma interface para listar vagas fictícias com filtros por área, nível e modelo de trabalho.",
+    techs: ["HTML", "CSS", "Filtros JS"]
+  },
+  {
+    t: "Catálogo de Cursos",
+    area: "front-end",
+    level: "iniciante",
+    type: "dashboard",
+    icon: "lucide:graduation-cap",
+    txt: "Crie uma página com cards de cursos, filtros por tema e botões para links externos.",
+    techs: ["HTML", "CSS", "JavaScript"]
+  }
+];
+
+function projectCard(p) {
+  return `
+    <article class="card project-card"
+      data-area="${p.area}"
+      data-level="${p.level}"
+      data-type="${p.type}"
+      data-title="${p.t.toLowerCase()} ${p.area} ${p.level} ${p.type} ${p.techs.join(" ").toLowerCase()}">
+
+      <div class="project-top">
+        <div class="feature-icon">
+          ${icon(p.icon)}
+        </div>
+        <span class="badge">${p.level}</span>
+      </div>
+
+      <h3>${p.t}</h3>
+
+      <p class="lead" style="font-size:14px;line-height:1.55">
+        ${p.txt}
+      </p>
+
+      <div class="course-meta">
+        <span class="badge">${p.area}</span>
+        <span class="badge">${p.type}</span>
+      </div>
+
+      <div class="project-tags">
+        ${p.techs.map(tech => `<span>${tech}</span>`).join("")}
+      </div>
+
+      <div class="course-footer">
+        <button class="btn btn-primary" onclick="openModal('${p.t}', '${p.txt}', 'Começar projeto')">
+          ${icon("lucide:folder-code")}
+          Ver detalhes
+        </button>
+
+        <button class="btn-icon" onclick="showToast('Projeto salvo como referência.')">
+          ${icon("lucide:bookmark")}
+        </button>
+      </div>
+    </article>
+  `;
+}
+
+function initProjects() {
+  const grid = $("#projectsGrid");
+
+  if (!grid) return;
+
+  grid.innerHTML = projects.map(projectCard).join("");
+
+  function filterProjects() {
+    const q = ($("#projectSearch")?.value || "").toLowerCase();
+    const area = $("#projectAreaFilter")?.value || "all";
+    const level = $("#projectLevelFilter")?.value || "all";
+    const type = $("#projectTypeFilter")?.value || "all";
+
+    let visible = 0;
+
+    $$(".project-card", grid).forEach(card => {
+      const ok =
+        (!q || card.dataset.title.includes(q)) &&
+        (area === "all" || card.dataset.area === area) &&
+        (level === "all" || card.dataset.level === level) &&
+        (type === "all" || card.dataset.type === type);
+
+      card.style.display = ok ? "flex" : "none";
+
+      if (ok) visible++;
+    });
+
+    $("#emptyProjects")?.classList.toggle("hidden", visible > 0);
+  }
+
+  ["input", "change"].forEach(ev => {
+    [
+      $("#projectSearch"),
+      $("#projectAreaFilter"),
+      $("#projectLevelFilter"),
+      $("#projectTypeFilter")
+    ].forEach(el => el && el.addEventListener(ev, filterProjects));
+  });
+}
+
+
+
 function initRoadmap() {
   const steps = $('#roadmapSteps');
   const table = $('#roadmapTable');
@@ -676,6 +846,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initJobs();
   initTools();
   initRoadmap();
+  initProjects();
   initForms();
   initATS();
 });

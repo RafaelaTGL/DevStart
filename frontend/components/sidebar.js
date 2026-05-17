@@ -13,7 +13,7 @@ window.ConectaComponents.sidebar = `<aside class="sidebar">
         <a href="oportunidades.html"><span class="iconify"
             data-icon="lucide:briefcase-business"></span>Oportunidades</a>
         <a href="ferramentas.html"><span class="iconify" data-icon="lucide:wrench"></span>Ferramentas</a>
-        <a href="roadmap.html"><span class="iconify" data-icon="lucide:route"></span>Roadmap</a>
+        <a href="roadmap.html"><span class="iconify" data-icon="lucide:folder-code"></span>Projetos</a>
       </nav>
 
       <div class="side-card side-profile-card">

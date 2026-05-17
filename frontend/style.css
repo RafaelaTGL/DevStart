@@ -2154,3 +2154,37 @@ body.dark-mode .ats-score-ring::after {
     grid-template-columns: 1fr;
   }
 }
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.project-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.project-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.project-tags span {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(124, 58, 237, .08);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+body.dark-mode .project-tags span {
+  background: rgba(124, 58, 237, .18);
+  color: #C4B5FD;
+}
+
