@@ -9,6 +9,6 @@ window.ConectaComponents.header = `<header class="topbar glass">
         <div class="top-actions">
           <button class="btn-icon theme-toggle" aria-label="Alternar modo claro e escuro" title="Alternar tema"><span
               class="iconify" data-icon="lucide:moon"></span></button>
-              <a href="contato.html"><button class="btn-icon"><span class="iconify" data-icon="lucide:messages-square"></span></button></a>
+              <a href="contato.html"><button class="btn-icon contato"><span class="iconify" data-icon="lucide:message-square-more"></span></button></a>
         </div>
       </header>`;

@@ -27,6 +27,13 @@ const $ = (s, c = document) => c.querySelector(s);
 const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 const icon = (name) => `<span class="iconify" data-icon="${name}"></span>`;
 
+const data = window.ConectaData || {};
+const courses = data.courses || [];
+const jobs = data.jobs || [];
+const tools = data.tools || [];
+const roadmaps = data.roadmaps || {};
+const projects = data.projects || [];
+
 function initTheme() {
   const saved = localStorage.getItem('conecta-theme') || 'light';
 
@@ -140,7 +147,6 @@ function openModal(title, body, cta = 'Entendi') {
     <div class="modal-box">
       <div class="modal-head">
         <div>
-          <span class="badge">${icon('ph:sparkle-bold')} DevStart</span>
           <h2 style="margin-top:12px">${title}</h2>
         </div>
 
@@ -175,27 +181,9 @@ function openModal(title, body, cta = 'Entendi') {
   };
 }
 
-const jobs = [
-  { t: 'Buscar estágio em tecnologia', type: 'estagio', mode: 'front-end', platform: 'Gupy', icon: 'lucide:briefcase-business', txt: 'Busca externa para vagas de estágio em tecnologia no Portal Gupy.', url: 'https://portal.gupy.io/job-search/term=est%C3%A1gio%20tecnologia' },
-  { t: 'Buscar jovem aprendiz TI', type: 'aprendiz', mode: 'suporte', platform: 'Gupy', icon: 'lucide:user-round-check', txt: 'Atalho para oportunidades de jovem aprendiz relacionadas a TI e áreas administrativas.', url: 'https://portal.gupy.io/job-search/term=jovem%20aprendiz%20ti' },
-  { t: 'Front-end júnior', type: 'junior', mode: 'front-end', platform: 'LinkedIn Jobs', icon: 'lucide:code-2', txt: 'Busca externa para vagas front-end júnior e posições de entrada.', url: 'https://www.linkedin.com/jobs/search/?keywords=front-end%20j%C3%BAnior' },
-  { t: 'Estágio em dados', type: 'estagio', mode: 'dados', platform: 'LinkedIn Jobs', icon: 'lucide:chart-no-axes-combined', txt: 'Busca por estágio em dados, BI, SQL, Python e análise de dados.', url: 'https://www.linkedin.com/jobs/search/?keywords=est%C3%A1gio%20dados' },
-  { t: 'Vagas tech para iniciantes', type: 'junior', mode: 'backend', platform: 'Programathor', icon: 'lucide:terminal-square', txt: 'Plataforma voltada para vagas de tecnologia, desenvolvimento e perfis júnior.', url: 'https://programathor.com.br/jobs' },
-  { t: 'Estágio e trainee', type: 'estagio', mode: 'qa', platform: 'Cia de Talentos', icon: 'lucide:send', txt: 'Atalho para programas de estágio, trainee e oportunidades de início de carreira.', url: 'https://www.ciadeestagios.com.br/vagas' }
-];
 
-const tools = [
-  { slug: 'html-css', t: 'HTML e CSS', icon: 'devicon:html5', txt: 'Base para páginas web, estrutura, estilos, responsividade e acessibilidade.' },
-  { slug: 'javascript', t: 'JavaScript', icon: 'logos:javascript', txt: 'Interatividade, lógica no navegador, filtros, modais, formulários e consumo de APIs.' },
-  { slug: 'git-github', t: 'Git e GitHub', icon: 'mdi:github', txt: 'Versionamento, repositórios, README, portfólio e colaboração em projetos.' },
-  { slug: 'vscode', t: 'VS Code', icon: 'devicon:vscode', txt: 'Editor de código com terminal, extensões e organização de projetos.' },
-  { slug: 'sql-mysql', t: 'SQL e MySQL', icon: 'devicon:mysql', txt: 'Consultas, bancos relacionais, cadastros, relatórios e sistemas CRUD.' },
-  { slug: 'python', t: 'Python', icon: 'devicon:python', txt: 'Lógica, automação, análise de dados e primeiros scripts práticos.' },
-  { slug: 'figma', t: 'Figma', icon: 'logos:figma', txt: 'Design de interfaces, protótipos, componentes e fluxos de experiência.' },
-  { slug: 'devtools', t: 'DevTools', icon: 'logos:chrome', txt: 'Inspeção de HTML, CSS, responsividade, console e depuração.' },
-  { slug: 'apis', t: 'APIs', icon: 'lucide:plug-zap', txt: 'Integração entre sistemas, dados JSON e comunicação entre aplicações.' },
-  { slug: 'terminal', t: 'Terminal', icon: 'lucide:terminal', txt: 'Comandos, Git, execução de programas, navegação e automações simples.' }
-];
+
+
 
 function courseCard(c) {
   return `
@@ -218,9 +206,6 @@ function courseCard(c) {
           ${icon('lucide:external-link')} Ver curso
         </a>
 
-        <button class="btn-icon" onclick="showToast('Curso salvo como referência.')">
-          ${icon('lucide:bookmark')}
-        </button>
       </div>
     </article>
   `;
@@ -246,10 +231,6 @@ function jobCard(j) {
         <a class="btn btn-primary" href="${j.url}" target="_blank" rel="noopener">
           ${icon('lucide:search')} Buscar vaga
         </a>
-
-        <button class="btn-icon" onclick="showToast('Busca salva como referência.')">
-          ${icon('lucide:star')}
-        </button>
       </div>
     </article>
   `;
@@ -351,193 +332,9 @@ function initTools() {
   grid.innerHTML = tools.map(toolCard).join('');
 }
 
-const roadmaps = {
-  frontend: {
-    title: 'Roadmap Front-end',
-    steps: [
-      'HTML semântico, CSS moderno e responsividade',
-      'JavaScript, DOM, eventos, filtros e modais',
-      'Projetos: landing page, dashboard e consumo de API',
-      'Portfólio, GitHub, currículo e vagas front-end'
-    ],
-    week: [
-      ['Segunda', 'HTML/CSS', 'Criar uma seção responsiva'],
-      ['Terça', 'JavaScript DOM', 'Criar interação simples'],
-      ['Quarta', 'GitHub', 'Publicar README'],
-      ['Quinta', 'Projeto', 'Melhorar layout e responsividade'],
-      ['Sexta', 'Mercado', 'Buscar 3 vagas front-end']
-    ]
-  },
 
-  backend: {
-    title: 'Roadmap Back-end',
-    steps: [
-      'Lógica, POO e organização de código',
-      'Banco de dados, SQL e modelagem',
-      'APIs, rotas, JSON e validações',
-      'Deploy, documentação e candidatura back-end'
-    ],
-    week: [
-      ['Segunda', 'Lógica', 'Resolver 5 exercícios'],
-      ['Terça', 'SQL', 'Criar tabelas e consultas'],
-      ['Quarta', 'API', 'Desenhar rotas CRUD'],
-      ['Quinta', 'GitHub', 'Documentar endpoints'],
-      ['Sexta', 'Mercado', 'Buscar vagas back-end']
-    ]
-  },
 
-  dados: {
-    title: 'Roadmap Dados',
-    steps: [
-      'SQL, planilhas e pensamento analítico',
-      'Python com Pandas e limpeza de dados',
-      'Dashboards, KPIs e storytelling',
-      'Portfólio com datasets e vagas de dados'
-    ],
-    week: [
-      ['Segunda', 'SQL', 'Praticar SELECT e JOIN'],
-      ['Terça', 'Python', 'Ler dataset com Pandas'],
-      ['Quarta', 'Gráficos', 'Criar 2 visualizações'],
-      ['Quinta', 'Dashboard', 'Montar KPIs'],
-      ['Sexta', 'Mercado', 'Buscar estágio em dados']
-    ]
-  },
 
-  suporte: {
-    title: 'Roadmap Suporte Técnico',
-    steps: [
-      'Hardware, software, redes e sistemas operacionais',
-      'Atendimento, chamados e documentação',
-      'Office, Windows, redes e troubleshooting',
-      'Currículo para suporte e jovem aprendiz TI'
-    ],
-    week: [
-      ['Segunda', 'Windows', 'Revisar conceitos básicos'],
-      ['Terça', 'Redes', 'Estudar IP, DNS e Wi-Fi'],
-      ['Quarta', 'Chamados', 'Simular atendimento'],
-      ['Quinta', 'Documentação', 'Criar checklist técnico'],
-      ['Sexta', 'Mercado', 'Buscar suporte estágio']
-    ]
-  },
-
-  qa: {
-    title: 'Roadmap QA/Testes',
-    steps: [
-      'Lógica de testes e critérios de aceite',
-      'Casos de teste, bugs e documentação',
-      'Testes web, DevTools e noções de automação',
-      'Portfólio com plano de testes e vagas QA'
-    ],
-    week: [
-      ['Segunda', 'Fundamentos', 'Escrever 5 casos de teste'],
-      ['Terça', 'Bug report', 'Documentar defeitos'],
-      ['Quarta', 'DevTools', 'Testar responsividade'],
-      ['Quinta', 'Projeto', 'Criar plano de testes'],
-      ['Sexta', 'Mercado', 'Buscar vagas QA']
-    ]
-  },
-
-  uxui: {
-    title: 'Roadmap UX/UI Design',
-    steps: [
-      'Pesquisa, personas e jornada do usuário',
-      'Wireframes, hierarquia visual e protótipos',
-      'Design system, acessibilidade e Figma',
-      'Case de portfólio e vagas UX/UI'
-    ],
-    week: [
-      ['Segunda', 'Pesquisa', 'Mapear persona'],
-      ['Terça', 'Wireframe', 'Criar tela simples'],
-      ['Quarta', 'UI', 'Definir cores e tipografia'],
-      ['Quinta', 'Protótipo', 'Montar fluxo no Figma'],
-      ['Sexta', 'Mercado', 'Buscar vagas UX/UI']
-    ]
-  }
-};
-
-const projects = [
-  {
-    t: "Landing Page SaaS",
-    area: "front-end",
-    level: "iniciante",
-    type: "landing-page",
-    icon: "lucide:layout-template",
-    txt: "Crie uma landing page moderna para um produto digital, com hero, benefícios, cards e CTA.",
-    techs: ["HTML", "CSS", "Responsivo"]
-  },
-  {
-    t: "Dashboard de Estudos",
-    area: "front-end",
-    level: "iniciante",
-    type: "dashboard",
-    icon: "lucide:layout-dashboard",
-    txt: "Monte um painel para acompanhar metas, progresso semanal, cursos e tarefas de estudo.",
-    techs: ["HTML", "CSS", "JavaScript"]
-  },
-  {
-    t: "Lista de Tarefas com LocalStorage",
-    area: "front-end",
-    level: "iniciante",
-    type: "crud",
-    icon: "lucide:list-checks",
-    txt: "Crie uma lista de tarefas com adicionar, editar, concluir, excluir e salvar no navegador.",
-    techs: ["JavaScript", "DOM", "LocalStorage"]
-  },
-  {
-    t: "Sistema de Biblioteca",
-    area: "full-stack",
-    level: "intermediario",
-    type: "crud",
-    icon: "lucide:library-big",
-    txt: "Desenvolva um sistema para cadastrar livros, autores, categorias e controlar empréstimos.",
-    techs: ["HTML", "CSS", "Node.js", "SQL"]
-  },
-  {
-    t: "API de Currículos",
-    area: "back-end",
-    level: "intermediario",
-    type: "api",
-    icon: "lucide:file-user",
-    txt: "Crie uma API para cadastrar, listar, atualizar e remover currículos de candidatos.",
-    techs: ["Node.js", "Express", "REST"]
-  },
-  {
-    t: "Analisador ATS com IA",
-    area: "ia",
-    level: "avancado",
-    type: "api",
-    icon: "lucide:brain-circuit",
-    txt: "Construa uma aplicação que recebe currículo, envia para IA e retorna score ATS com melhorias.",
-    techs: ["Node.js", "Multer", "Groq API"]
-  },
-  {
-    t: "Controle Financeiro",
-    area: "full-stack",
-    level: "intermediario",
-    type: "dashboard",
-    icon: "lucide:wallet",
-    txt: "Crie um painel para registrar entradas, saídas, categorias e resumo financeiro mensal.",
-    techs: ["JavaScript", "Gráficos", "CRUD"]
-  },
-  {
-    t: "Buscador de Vagas",
-    area: "front-end",
-    level: "intermediario",
-    type: "portfolio",
-    icon: "lucide:briefcase-business",
-    txt: "Monte uma interface para listar vagas fictícias com filtros por área, nível e modelo de trabalho.",
-    techs: ["HTML", "CSS", "Filtros JS"]
-  },
-  {
-    t: "Catálogo de Cursos",
-    area: "front-end",
-    level: "iniciante",
-    type: "dashboard",
-    icon: "lucide:graduation-cap",
-    txt: "Crie uma página com cards de cursos, filtros por tema e botões para links externos.",
-    techs: ["HTML", "CSS", "JavaScript"]
-  }
-];
 
 function projectCard(p) {
   return `
@@ -570,13 +367,9 @@ function projectCard(p) {
       </div>
 
       <div class="course-footer">
-        <button class="btn btn-primary" onclick="openModal('${p.t}', '${p.txt}', 'Começar projeto')">
+        <button class="btn btn-primary" onclick="openModal('${p.t}', '${p.txt}')">
           ${icon("lucide:folder-code")}
           Ver detalhes
-        </button>
-
-        <button class="btn-icon" onclick="showToast('Projeto salvo como referência.')">
-          ${icon("lucide:bookmark")}
         </button>
       </div>
     </article>
@@ -683,13 +476,10 @@ function initATS() {
   const atsForm = document.querySelector("#atsForm");
   const resultadoATS = document.querySelector("#resultadoATS");
 
-  const inputCurriculo =
-  document.querySelector("#curriculo");
+  const inputCurriculo = document.querySelector("#curriculo");
+  const uploadText = document.querySelector("#uploadText");
 
-const uploadText =
-  document.querySelector("#uploadText");
-
-inputCurriculo?.addEventListener("change", () => {
+  inputCurriculo?.addEventListener("change", () => {
   const arquivo = inputCurriculo.files?.[0];
 
   if (!arquivo) return;
@@ -707,7 +497,7 @@ inputCurriculo?.addEventListener("change", () => {
       ${arquivo.name}
     </span>
   `;
-});
+  });
 
   if (!atsForm || !resultadoATS) return;
 
@@ -722,7 +512,7 @@ inputCurriculo?.addEventListener("change", () => {
       return;
     }
 
-    resultadoATS.innerHTML = `
+        resultadoATS.innerHTML = `
       <article class="ats-loading">
         <div class="ats-spinner"></div>
 
@@ -737,20 +527,20 @@ inputCurriculo?.addEventListener("change", () => {
     `;
 
     try {
-  const resposta = await fetch("https://devstart.onrender.com/analisar-curriculo", {
+      const resposta = await fetch("https://devstart.onrender.com/analisar-curriculo", {
     method: "POST",
     body: dados,
   });
 
-  const analise = await resposta.json();
+      const analise = await resposta.json();
 
-  if (!resposta.ok) {
-    throw new Error(analise.erro || "Erro ao analisar currículo.");
-  }
+      if (!resposta.ok) {
+        throw new Error(analise.erro || "Erro ao analisar currículo.");
+      }
 
-  const score = analise.score ?? 0;
+      const score = analise.score ?? 0;
 
-  resultadoATS.innerHTML = `
+      resultadoATS.innerHTML = `
     <article class="ats-result-card">
       <div class="ats-result-top">
         <div class="ats-score-ring" style="--score:${score}">
@@ -799,9 +589,9 @@ inputCurriculo?.addEventListener("change", () => {
     </article>
   `;
 
-  showToast("Análise ATS concluída!");
-} catch (erro) {
-  resultadoATS.innerHTML = `
+      showToast("Análise ATS concluída!");
+    } catch (erro) {
+          resultadoATS.innerHTML = `
     <article class="ats-error">
       ${icon("lucide:circle-alert")}
 
@@ -814,7 +604,7 @@ inputCurriculo?.addEventListener("change", () => {
       </div>
     </article>
   `;
-}
+    }
   });
 }
 

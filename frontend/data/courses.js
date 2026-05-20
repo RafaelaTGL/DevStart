@@ -1,4 +1,5 @@
-const courses = [
+window.ConectaData = window.ConectaData || {};
+window.ConectaData.courses = [
   { t: 'HTML5 e CSS3 — Curso em Vídeo', area: 'front-end', level: 'iniciante', dur: 'longa', platform: 'Curso em Vídeo', icon: 'logos:html-5', txt: 'Base para criar páginas, estrutura HTML, estilos CSS e responsividade.', url: 'https://www.cursoemvideo.com/cursos/' },
   { t: 'Algoritmos e Lógica de Programação', area: 'programacao', level: 'iniciante', dur: 'curta', platform: 'Curso em Vídeo', icon: 'ph:flow-arrow-bold', txt: 'Primeiros passos com lógica, variáveis, condições, laços e resolução de problemas.', url: 'https://www.cursoemvideo.com/cursos/' },
   { t: 'Tecnologia da Informação', area: 'programacao', level: 'iniciante', dur: 'media', platform: 'Fundação Bradesco', icon: 'lucide:graduation-cap', txt: 'Cursos gratuitos de tecnologia, programação e produtividade para iniciar sua base.', url: 'https://www.ev.org.br/areas-de-interesse/tecnologia' },

@@ -1,114 +1,120 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Cursos | DevStart
-  </title>
-  <link href="../style.css" rel="stylesheet"/>
-  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js">
-  </script>
- </head>
- <body>
-  <div class="app-shell">
-   <div data-component="sidebar">
-   </div>
-   <div class="menu-overlay">
-   </div>
-   <main class="app-main">
-    <div data-component="header">
-    </div>
-    <section>
-     <div class="page-title">
-      <div>
-       <span class="eyebrow">
-        Cursos gratuitos
-       </span>
-       <h1>
-        Cursos externos recomendados
-       </h1>
-       <p class="lead">
-        O DevStart n&atilde;o hospeda cursos. Os bot&otilde;es abaixo redirecionam para
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>
+        Cursos | DevStart
+    </title>
+    <link href="../style.css" rel="stylesheet" />
+    <script src="https://code.iconify.design/3/3.1.1/iconify.min.js">
+    </script>
+</head>
+
+<body>
+    <div class="app-shell">
+        <div data-component="sidebar">
+        </div>
+        <div class="menu-overlay">
+        </div>
+        <main class="app-main">
+            <div data-component="header">
+            </div>
+            <section>
+                <div class="page-title">
+                    <div>
+                        <span class="eyebrow">
+                            Cursos gratuitos
+                        </span>
+                        <h1>
+                            Cursos externos recomendados
+                        </h1>
+                        <p class="lead">
+                            O DevStart n&atilde;o hospeda cursos. Os bot&otilde;es abaixo redirecionam para
                             plataformas gratuitas ou com trilhas abertas confi&aacute;veis.
-       </p>
-      </div>
-     </div>
-     <div class="filters">
-      <input class="filter" id="courseSearch" placeholder="Buscar curso"/>
-      <select class="select" id="areaFilter">
-       <option value="all">
-        Todas as &aacute;reas
-       </option>
-       <option value="programacao">
-        Programa&ccedil;&atilde;o
-       </option>
-       <option value="front-end">
-        Front-end
-       </option>
-       <option value="back-end">
-        Back-end
-       </option>
-       <option value="dados">
-        Dados
-       </option>
-       <option value="cloud">
-        Cloud
-       </option>
-       <option value="carreira">
-        Carreira
-       </option>
-      </select>
-      <select class="select" id="levelFilter">
-       <option value="all">
-        Todos os n&iacute;veis
-       </option>
-       <option value="iniciante">
-        Iniciante
-       </option>
-       <option value="intermediario">
-        Intermedi&aacute;rio
-       </option>
-      </select>
-      <select class="select" id="durFilter">
-       <option value="all">
-        Todas as dura&ccedil;&otilde;es
-       </option>
-       <option value="curta">
-        Curta
-       </option>
-       <option value="media">
-        M&eacute;dia
-       </option>
-       <option value="longa">
-        Longa
-       </option>
-      </select>
-     </div>
-     <div class="content-grid" id="coursesGrid">
-     </div>
-     <div class="empty-state hidden" id="emptyCourses">
-      <h3>
-       Nenhum curso encontrado
-      </h3>
-      <p class="lead">
-       Tente outro filtro ou termo de busca.
-      </p>
-     </div>
-    </section>
-   </main>
-  </div>
-  <div aria-hidden="true" class="modal">
-  </div>
-  <div class="toast">
-  </div>
-  <script src="../components/sidebar.js">
-  </script>
-  <script src="../components/header.js">
-  </script>
-  <script src="../data/courses.js">
-  </script>
-  <script src="../script.js">
-  </script>
- </body>
+                        </p>
+                    </div>
+                </div>
+                <div class="filters">
+                    <input class="filter" id="courseSearch" placeholder="Buscar curso" />
+                    <select class="select" id="areaFilter">
+                        <option value="all">
+                            Todas as &aacute;reas
+                        </option>
+                        <option value="programacao">
+                            Programa&ccedil;&atilde;o
+                        </option>
+                        <option value="front-end">
+                            Front-end
+                        </option>
+                        <option value="back-end">
+                            Back-end
+                        </option>
+                        <option value="dados">
+                            Dados
+                        </option>
+                        <option value="cloud">
+                            Cloud
+                        </option>
+                        <option value="carreira">
+                            Carreira
+                        </option>
+                    </select>
+                    <select class="select" id="levelFilter">
+                        <option value="all">
+                            Todos os n&iacute;veis
+                        </option>
+                        <option value="iniciante">
+                            Iniciante
+                        </option>
+                        <option value="intermediario">
+                            Intermedi&aacute;rio
+                        </option>
+                    </select>
+                    <select class="select" id="durFilter">
+                        <option value="all">
+                            Todas as dura&ccedil;&otilde;es
+                        </option>
+                        <option value="curta">
+                            Curta
+                        </option>
+                        <option value="media">
+                            M&eacute;dia
+                        </option>
+                        <option value="longa">
+                            Longa
+                        </option>
+                    </select>
+                </div>
+                <div class="content-grid" id="coursesGrid">
+                </div>
+                <div class="empty-state hidden" id="emptyCourses">
+                    <h3>
+                        Nenhum curso encontrado
+                    </h3>
+                    <p class="lead">
+                        Tente outro filtro ou termo de busca.
+                    </p>
+                </div>
+            </section>
+        </main>
+    </div>
+    <div aria-hidden="true" class="modal">
+    </div>
+    <div class="toast">
+    </div>
+    <script src="../components/sidebar.js">
+    </script>
+    <script src="../components/header.js">
+    </script>
+    <script src="../data/courses.js"></script>
+    <script src="../data/jobs.js"></script>
+    <script src="../data/tools.js"></script>
+    <script src="../data/roadmaps.js"></script>
+    <script src="../data/projects.js"></script>
+    <script src="../script.js">
+    </script>
+</body>
+
 </html>

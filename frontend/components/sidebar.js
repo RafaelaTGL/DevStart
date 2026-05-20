@@ -15,18 +15,4 @@ window.ConectaComponents.sidebar = `<aside class="sidebar">
         <a href="ferramentas.html"><span class="iconify" data-icon="lucide:wrench"></span>Ferramentas</a>
         <a href="roadmap.html"><span class="iconify" data-icon="lucide:folder-code"></span>Projetos</a>
       </nav>
-
-      <div class="side-card side-profile-card">
-        <div class="feature-icon side-profile-avatar">R</div>
-
-        <b>Rafaela</b>
-
-        <p class="lead" style="font-size:13px;line-height:1.5;margin:8px 0 14px">
-          Estudante de Sistemas de Informação
-        </p>
-
-        <a class="btn btn-secondary" href="curriculo.html">
-          Ver currículo
-        </a>
-      </div>
     </aside>`;
