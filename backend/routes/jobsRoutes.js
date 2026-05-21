@@ -24,19 +24,33 @@ router.get("/api/vagas", async (req, res) => {
 
     const data = await response.json();
 
+    if (!response.ok) {
+      return res.status(response.status).json({
+        erro: "Erro ao buscar vagas na JSearch.",
+        detalhes: data,
+      });
+    }
+
     const vagas = (data.data || []).map((vaga) => ({
       titulo: vaga.job_title,
       empresa: vaga.employer_name,
-      local: vaga.job_city || vaga.job_country || "Não informado",
-      link: vaga.job_apply_link,
-      remoto: vaga.job_is_remote,
+      local:
+        [vaga.job_city, vaga.job_state, vaga.job_country]
+          .filter(Boolean)
+          .join(", ") || "Não informado",
+      link: vaga.job_apply_link || vaga.job_google_link,
+      remoto: Boolean(vaga.job_is_remote),
       fonte: vaga.job_publisher || "JSearch",
+      descricao: vaga.job_description,
+      data: vaga.job_posted_at_datetime_utc,
     }));
 
     res.json(vagas);
   } catch (error) {
+    console.error("Erro ao buscar vagas:", error);
+
     res.status(500).json({
-      erro: "Erro ao buscar vagas.",
+      erro: "Erro interno ao buscar vagas.",
     });
   }
 });

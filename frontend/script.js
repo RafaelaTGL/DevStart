@@ -15,7 +15,7 @@ function loadGlobalComponents() {
 
 function setActiveSidebarLink() {
   const currentPage = window.location.pathname.split('/').pop() || 'dashboard.html';
-  const activePage = currentPage.startsWith('ferramenta-') ? 'ferramentas.html' : currentPage;
+  const activePage = currentPage.startsWith('ferramenta-') || currentPage === 'tool-detail.html' ? 'ferramentas.html' : currentPage;
 
   document.querySelectorAll('.side-nav a').forEach(link => {
     const linkPage = link.getAttribute('href')?.split('/').pop();
@@ -245,8 +245,8 @@ function toolCard(t) {
 
       <p class="lead" style="font-size:14px;line-height:1.55">${t.txt}</p>
 
-      <a class="btn btn-primary" href="ferramenta-${t.slug}.html">
-        ${icon('lucide:arrow-right')} Ver página
+      <a class="btn btn-primary" href="tool-detail.html?tool=${t.slug}">
+        ${icon('lucide:arrow-right')} Ver detalhes
       </a>
     </article>
   `;
@@ -289,30 +289,302 @@ function initCourses() {
   );
 }
 
-let currentJobsPage = 1;
-
-async function carregarVagas(reset = false) {
-  const grid = $("#jobsGrid");
+function initTools() {
+  const grid = $("#toolsGrid");
 
   if (!grid) return;
 
-  const busca = ($("#jobSearch")?.value || "estagio ti").trim();
-  const local = ($("#jobLocation")?.value || "").trim();
+  grid.innerHTML = tools.map(toolCard).join("");
+}
 
+function initToolDetail() {
+  const detail = $('#toolDetail');
+
+  if (!detail) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get('tool');
+  const tool = tools.find(item => item.slug === slug);
+
+  if (!tool) {
+    detail.innerHTML = `
+      <article class="card tool-detail">
+        <div class="feature-icon">${icon('lucide:circle-alert')}</div>
+        <h2>Ferramenta não encontrada</h2>
+        <p class="lead">Não encontramos essa ferramenta na base de dados.</p>
+        <div class="hero-actions" style="margin-top:22px">
+          <a class="btn btn-primary" href="ferramentas.html">
+            ${icon('lucide:arrow-left')} Voltar para ferramentas
+          </a>
+        </div>
+      </article>
+    `;
+    return;
+  }
+
+  const areaLabel = {
+    'front-end': 'Front-end',
+    'back-end': 'Back-end',
+    dados: 'Dados',
+    ia: 'Inteligência Artificial',
+    design: 'Design',
+    devops: 'DevOps',
+    cloud: 'Cloud',
+    ferramentas: 'Ferramentas gerais',
+    automacao: 'Automação'
+  }[tool.area] || tool.area || 'Tecnologia';
+
+  const officialLinks = {
+    'html-css': 'https://developer.mozilla.org/pt-BR/docs/Web/HTML',
+    javascript: 'https://developer.mozilla.org/pt-BR/docs/Web/JavaScript',
+    typescript: 'https://www.typescriptlang.org/docs/',
+    react: 'https://react.dev/',
+    nextjs: 'https://nextjs.org/docs',
+    tailwind: 'https://tailwindcss.com/docs',
+    bootstrap: 'https://getbootstrap.com/docs/',
+    nodejs: 'https://nodejs.org/docs/latest/api/',
+    express: 'https://expressjs.com/',
+    php: 'https://www.php.net/docs.php',
+    java: 'https://dev.java/learn/',
+    csharp: 'https://learn.microsoft.com/pt-br/dotnet/csharp/',
+    'sql-mysql': 'https://dev.mysql.com/doc/',
+    postgresql: 'https://www.postgresql.org/docs/',
+    mongodb: 'https://learn.mongodb.com/',
+    powerbi: 'https://learn.microsoft.com/pt-br/power-bi/',
+    excel: 'https://support.microsoft.com/pt-br/excel',
+    python: 'https://docs.python.org/pt-br/3/',
+    openai: 'https://platform.openai.com/docs',
+    groq: 'https://console.groq.com/docs/overview',
+    'prompt-engineering': 'https://www.promptingguide.ai/pt',
+    figma: 'https://help.figma.com/',
+    photoshop: 'https://helpx.adobe.com/br/photoshop/tutorials.html',
+    'git-github': 'https://docs.github.com/pt/get-started',
+    docker: 'https://docs.docker.com/',
+    'github-actions': 'https://docs.github.com/pt/actions',
+    aws: 'https://explore.skillbuilder.aws/',
+    azure: 'https://learn.microsoft.com/pt-br/training/azure/',
+    firebase: 'https://firebase.google.com/docs',
+    render: 'https://docs.render.com/',
+    vercel: 'https://vercel.com/docs',
+    vscode: 'https://code.visualstudio.com/docs',
+    devtools: 'https://developer.chrome.com/docs/devtools',
+    apis: 'https://developer.mozilla.org/pt-BR/docs/Learn/JavaScript/Client-side_web_APIs/Introduction',
+    postman: 'https://learning.postman.com/docs/introduction/overview/',
+    terminal: 'https://developer.mozilla.org/pt-BR/docs/Learn/Tools_and_testing/Understanding_client-side_tools/Command_line',
+    n8n: 'https://docs.n8n.io/'
+  };
+
+  const usedForByArea = {
+    'front-end': ['Criar interfaces e páginas responsivas', 'Melhorar a experiência visual do usuário', 'Construir projetos para portfólio web'],
+    'back-end': ['Criar APIs e regras de negócio', 'Conectar sistemas com banco de dados', 'Trabalhar com autenticação e integrações'],
+    dados: ['Organizar e analisar informações', 'Criar relatórios e dashboards', 'Apoiar decisões com indicadores'],
+    ia: ['Criar soluções com modelos de IA', 'Automatizar análises e respostas', 'Melhorar produtividade com prompts'],
+    design: ['Planejar interfaces antes do código', 'Criar protótipos e fluxos de tela', 'Melhorar usabilidade e acessibilidade'],
+    devops: ['Automatizar etapas do desenvolvimento', 'Padronizar ambientes e deploys', 'Apoiar publicação e manutenção de sistemas'],
+    cloud: ['Hospedar aplicações e APIs', 'Configurar serviços em nuvem', 'Publicar projetos para acesso online'],
+    ferramentas: ['Aumentar produtividade no desenvolvimento', 'Testar, depurar e organizar projetos', 'Apoiar o fluxo de trabalho diário'],
+    automacao: ['Conectar ferramentas e serviços', 'Criar fluxos automáticos', 'Reduzir tarefas repetitivas']
+  };
+
+  const nextStepsByArea = {
+    'front-end': ['Pratique com páginas reais', 'Estude responsividade', 'Consuma APIs em projetos'],
+    'back-end': ['Crie uma API REST simples', 'Conecte com banco de dados', 'Implemente autenticação básica'],
+    dados: ['Pratique consultas e filtros', 'Monte dashboards simples', 'Documente seus insights'],
+    ia: ['Aprenda boas práticas de prompt', 'Teste uma API de IA', 'Crie um projeto pequeno com entrada e resposta'],
+    design: ['Crie um protótipo no Figma', 'Estude hierarquia visual', 'Refaça uma tela existente'],
+    devops: ['Aprenda Git com frequência', 'Teste deploy de um projeto', 'Configure uma automação simples'],
+    cloud: ['Publique um projeto pessoal', 'Entenda variáveis de ambiente', 'Aprenda noções de domínio e deploy'],
+    ferramentas: ['Use em um projeto real', 'Aprenda atalhos e comandos básicos', 'Documente seu processo no README'],
+    automacao: ['Mapeie uma tarefa repetitiva', 'Crie um fluxo simples', 'Integre uma API ou planilha']
+  };
+
+  const usedFor = tool.usedFor || usedForByArea[tool.area] || ['Entender a função da ferramenta', 'Aplicar em projetos práticos', 'Melhorar seu repertório técnico'];
+  const nextSteps = tool.nextSteps || nextStepsByArea[tool.area] || ['Estudar a documentação', 'Criar um projeto simples', 'Adicionar ao portfólio'];
+  const link = tool.link || officialLinks[tool.slug];
+
+  document.title = `${tool.t} | DevStart`;
+
+  detail.innerHTML = `
+    <div class="page-title">
+      <div>
+        <span class="eyebrow">Ferramenta • ${areaLabel}</span>
+        <h1>${tool.t}</h1>
+        <p class="lead">${tool.txt}</p>
+      </div>
+
+      <a class="btn btn-secondary" href="ferramentas.html">
+        ${icon('lucide:arrow-left')} Voltar
+      </a>
+    </div>
+
+    <article class="card tool-detail">
+      <div class="feature-icon">${icon(tool.icon)}</div>
+
+      <h2>Para que serve?</h2>
+      <p class="lead">
+        ${tool.t} é uma ferramenta importante dentro da área de ${areaLabel.toLowerCase()}.
+        Ela ajuda no aprendizado, na criação de projetos práticos e no desenvolvimento de habilidades valorizadas no mercado.
+      </p>
+
+      <div class="job-meta" style="margin-top:16px">
+        ${(tool.tags || []).map(tag => `<span class="badge">${tag}</span>`).join('')}
+      </div>
+
+      <div class="grid grid-3" style="margin-top:18px">
+        <article class="card">
+          <h3>Use para</h3>
+          <ul>
+            ${usedFor.map(item => `<li>${item}</li>`).join('')}
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Comece por</h3>
+          <ul>
+            <li>Entender o conceito principal</li>
+            <li>Fazer exercícios pequenos</li>
+            <li>Aplicar em um projeto simples</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Próximos passos</h3>
+          <ul>
+            ${nextSteps.map(item => `<li>${item}</li>`).join('')}
+          </ul>
+        </article>
+      </div>
+
+      <div class="hero-actions" style="margin-top:22px">
+        ${link ? `
+          <a class="btn btn-primary" href="${link}" target="_blank" rel="noopener">
+            ${icon('lucide:external-link')} Acessar material
+          </a>
+        ` : ''}
+      </div>
+    </article>
+  `;
+}
+
+
+let currentJobsPage = 1;
+let jobsLoading = false;
+
+function getJobSearchQuery() {
+  const buscaDigitada = ($("#jobSearch")?.value || "").trim();
   const type = $("#typeFilter")?.value || "all";
   const mode = $("#modeFilter")?.value || "all";
 
+  const typeMap = {
+    all: "estagio ti",
+    estagio: "estagio ti",
+    aprendiz: "jovem aprendiz ti",
+    junior: "junior tecnologia"
+  };
+
+  const modeMap = {
+    all: "",
+    "front-end": "frontend desenvolvimento web",
+    dados: "dados tecnologia",
+    suporte: "suporte tecnico ti",
+    qa: "qa testes software",
+    backend: "backend desenvolvimento"
+  };
+
+  return [
+    buscaDigitada || typeMap[type] || "estagio ti",
+    modeMap[mode] || ""
+  ].join(" ").trim();
+}
+
+function formatJobLocation(vaga) {
+  return vaga.local || "Local não informado";
+}
+
+function jobApiCard(vaga) {
+  const titulo = vaga.titulo || "Vaga sem título";
+  const empresa = vaga.empresa || "Empresa não informada";
+  const local = formatJobLocation(vaga);
+  const fonte = vaga.fonte || "JSearch";
+  const link = vaga.link || "#";
+
+  return `
+    <article class="card job-card job-api-card">
+      <div class="job-card-head">
+        <div class="feature-icon">
+          ${icon("lucide:briefcase-business")}
+        </div>
+
+        <span class="badge">
+          ${icon("lucide:database")}
+          ${fonte}
+        </span>
+      </div>
+
+      <div>
+        <h3>${titulo}</h3>
+
+        <p class="lead job-company">
+          ${empresa}
+        </p>
+      </div>
+
+      <div class="job-meta">
+        <span class="badge">
+          ${icon("lucide:map-pin")}
+          ${local}
+        </span>
+
+        <span class="badge">
+          ${vaga.remoto ? "Remoto" : "Presencial/Híbrido"}
+        </span>
+      </div>
+
+      <div class="job-footer">
+        <a class="btn btn-primary" href="${link}" target="_blank" rel="noopener">
+          ${icon("lucide:external-link")}
+          Ver vaga
+        </a>
+      </div>
+    </article>
+  `;
+}
+
+function renderJobsLoading() {
+  return `
+    <article class="card job-loading-card">
+      <div class="feature-icon">
+        ${icon("lucide:loader-circle")}
+      </div>
+
+      <div>
+        <h3>Buscando vagas...</h3>
+        <p class="lead">Carregando oportunidades reais para os filtros selecionados.</p>
+      </div>
+    </article>
+  `;
+}
+
+async function carregarVagas(reset = false) {
+  const grid = $("#jobsGrid");
+  const loadMoreButton = $("#loadMoreJobs");
+
+  if (!grid || jobsLoading) return;
+
+  const busca = getJobSearchQuery();
+  const local = ($("#jobLocation")?.value || "").trim();
+
   if (reset) {
     currentJobsPage = 1;
-    grid.innerHTML = "";
+    grid.innerHTML = renderJobsLoading();
+    $("#emptyJobs")?.classList.add("hidden");
   }
 
-  if (!grid.innerHTML.trim()) {
-    grid.innerHTML = `
-      <p class="lead">
-        Carregando vagas...
-      </p>
-    `;
+  jobsLoading = true;
+
+  if (loadMoreButton) {
+    loadMoreButton.disabled = true;
+    loadMoreButton.innerHTML = `${icon("lucide:loader-circle")} Carregando...`;
   }
 
   try {
@@ -326,94 +598,48 @@ async function carregarVagas(reset = false) {
 
     const vagas = await resposta.json();
 
+    if (!resposta.ok || !Array.isArray(vagas)) {
+      throw new Error(vagas?.erro || "Erro ao buscar vagas.");
+    }
+
     if (reset) {
       grid.innerHTML = "";
     }
 
-    const vagasFiltradas = vagas.filter(vaga => {
-      const texto = `
-        ${vaga.titulo || ""}
-        ${vaga.empresa || ""}
-      `.toLowerCase();
-
-      const okType =
-        type === "all" ||
-        texto.includes(type);
-
-      const okMode =
-        mode === "all" ||
-        texto.includes(mode);
-
-      return okType && okMode;
-    });
-
-    if (!vagasFiltradas.length && currentJobsPage === 1) {
-      grid.innerHTML = "";
-
+    if (!vagas.length && currentJobsPage === 1) {
       $("#emptyJobs")?.classList.remove("hidden");
-
+      grid.innerHTML = "";
       return;
     }
 
-    $("#emptyJobs")?.classList.add("hidden");
+    $("#emptyJobs")?.classList.toggle("hidden", vagas.length > 0);
 
-    grid.innerHTML += vagasFiltradas
-      .map(
-        vaga => `
-          <article class="card job-card">
-
-            <div class="feature-icon">
-              ${icon("lucide:briefcase-business")}
-            </div>
-
-            <div class="badge">
-              ${vaga.fonte || "JSearch"}
-            </div>
-
-            <h3>
-              ${vaga.titulo || "Vaga sem título"}
-            </h3>
-
-            <p class="lead" style="font-size:14px;line-height:1.55">
-              ${vaga.empresa || "Empresa não informada"}
-              •
-              ${vaga.local || "Local não informado"}
-            </p>
-
-            <div class="job-meta">
-              <span class="badge">
-                estágio
-              </span>
-
-              <span class="badge">
-                ${vaga.remoto ? "remoto" : "presencial/híbrido"}
-              </span>
-            </div>
-
-            <div class="job-footer">
-              <a
-                class="btn btn-primary"
-                href="${vaga.link}"
-                target="_blank"
-                rel="noopener"
-              >
-                ${icon("lucide:external-link")}
-                Ver vaga
-              </a>
-            </div>
-
-          </article>
-        `
-      )
-      .join("");
-
+    grid.innerHTML += vagas.map(jobApiCard).join("");
     currentJobsPage++;
   } catch (error) {
-    grid.innerHTML = `
-      <p class="lead">
-        Não foi possível carregar as vagas agora.
-      </p>
-    `;
+    if (reset) {
+      grid.innerHTML = `
+        <article class="card job-loading-card">
+          <div class="feature-icon">
+            ${icon("lucide:circle-alert")}
+          </div>
+
+          <div>
+            <h3>Não foi possível carregar as vagas</h3>
+            <p class="lead">Verifique se o backend no Render está ativo e tente novamente.</p>
+          </div>
+        </article>
+      `;
+    }
+
+    showToast(error.message || "Erro ao carregar vagas.");
+  } finally {
+    jobsLoading = false;
+
+    if (loadMoreButton) {
+      loadMoreButton.disabled = false;
+      loadMoreButton.innerHTML = `${icon("lucide:plus")} Carregar mais vagas`;
+    }
   }
 }
 
@@ -428,6 +654,8 @@ function initJobs() {
     carregarVagas(false);
   });
 
+  let filterTimer;
+
   ["input", "change"].forEach(evento => {
     [
       $("#jobSearch"),
@@ -436,15 +664,12 @@ function initJobs() {
       $("#modeFilter")
     ].forEach(el => {
       el?.addEventListener(evento, () => {
-        carregarVagas(true);
+        clearTimeout(filterTimer);
+        filterTimer = setTimeout(() => carregarVagas(true), 450);
       });
     });
   });
 }
-
-
-
-
 
 function projectCard(p) {
   return `
@@ -743,6 +968,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCourses();
   initJobs();
   initTools();
+  initToolDetail();
   initRoadmap();
   initProjects();
   initForms();

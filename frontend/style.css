@@ -1606,3 +1606,95 @@ body.dark-mode .project-tags span {
     width: 100%;
   }
 }
+
+/* ==================== OPORTUNIDADES ==================== */
+.jobs-search-panel {
+  margin-bottom: 1.125rem;
+}
+
+.jobs-search-panel .panel-title {
+  align-items: flex-start;
+}
+
+.jobs-search-panel .panel-title .lead {
+  max-width: 48rem;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  margin-top: 0.35rem;
+}
+
+.jobs-filters {
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.jobs-filters .filter,
+.jobs-filters .select {
+  min-height: 3rem;
+}
+
+.jobs-filters .filter {
+  min-width: 13.75rem;
+}
+
+.jobs-results-grid {
+  margin-top: 1.125rem;
+}
+
+.job-api-card {
+  min-height: 100%;
+}
+
+.job-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.875rem;
+}
+
+.job-company {
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.job-loading-card {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.jobs-load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.375rem;
+  margin-bottom: 1.125rem;
+}
+
+.jobs-load-more .btn {
+  min-width: 13.75rem;
+}
+
+.jobs-load-more .btn:disabled {
+  opacity: .72;
+  cursor: not-allowed;
+}
+
+.jobs-tip-card {
+  margin-top: 1.125rem;
+}
+
+.jobs-tip-card .lead {
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+@media (max-width: 35rem) {
+  .jobs-load-more .btn {
+    width: 100%;
+  }
+
+  .job-loading-card {
+    align-items: flex-start;
+  }
+}
