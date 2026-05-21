@@ -1,112 +1,208 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
   <title>
-   Oportunidades | DevStart
+    Oportunidades | DevStart
   </title>
-  <link href="../style.css" rel="stylesheet"/>
+
+  <link href="../style.css" rel="stylesheet" />
+
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js">
   </script>
- </head>
- <body>
+</head>
+
+<body>
   <div class="app-shell">
-   <div data-component="sidebar">
-   </div>
-   <div class="menu-overlay">
-   </div>
-   <main class="app-main">
-    <div data-component="header">
+
+    <div data-component="sidebar">
     </div>
-    <section>
-     <div class="page-title">
-      <div>
-       <span class="eyebrow">
-        Oportunidades
-       </span>
-       <h1>
-        Vagas em plataformas externas
-       </h1>
-       <p class="lead">
-        Os bot&otilde;es redirecionam para buscas reais em plataformas como Gupy, Programathor e Cia de Talentos. Use os filtros para escolher o tipo de busca.
-       </p>
+
+    <div class="menu-overlay">
+    </div>
+
+    <main class="app-main">
+
+      <div data-component="header">
       </div>
-     </div>
-     <div class="filters">
-      <input class="filter" id="jobSearch" placeholder="Buscar oportunidade"/>
-      <select class="select" id="typeFilter">
-       <option value="all">
-        Todos os tipos
-       </option>
-       <option value="estagio">
-        Est&aacute;gio
-       </option>
-       <option value="aprendiz">
-        Jovem aprendiz
-       </option>
-       <option value="junior">
-        J&uacute;nior
-       </option>
-      </select>
-      <select class="select" id="modeFilter">
-       <option value="all">
-        Todos os focos
-       </option>
-       <option value="front-end">
-        Front-end
-       </option>
-       <option value="dados">
-        Dados
-       </option>
-       <option value="suporte">
-        Suporte
-       </option>
-       <option value="qa">
-        QA
-       </option>
-       <option value="backend">
-        Back-end
-       </option>
-      </select>
-     </div>
-     <div class="content-grid" id="jobsGrid">
-     </div>
-     <div class="empty-state hidden" id="emptyJobs">
-      <h3>
-       Nenhuma busca encontrada
-      </h3>
-      <p class="lead">
-       Tente outro filtro ou palavra-chave.
-      </p>
-     </div>
-     <article class="card" style="margin-top:18px">
-      <div class="panel-title">
-       <h2>
-        Dica para buscar melhor
-       </h2>
-      </div>
-      <p class="lead" style="font-size:14px;line-height:1.65">
-       Pesquise por combina&ccedil;&otilde;es como &ldquo;est&aacute;gio tecnologia&rdquo;, &ldquo;jovem aprendiz TI&rdquo;, &ldquo;front-end j&uacute;nior&rdquo;, &ldquo;suporte t&eacute;cnico est&aacute;gio&rdquo; e &ldquo;analista de dados est&aacute;gio&rdquo;. Depois adapte seu curr&iacute;culo com as palavras-chave da vaga.
-      </p>
-     </article>
-    </section>
-   </main>
+
+      <section>
+
+        <div class="page-title">
+          <div>
+
+            <span class="eyebrow">
+              Oportunidades
+            </span>
+
+            <h1>
+              Vagas em plataformas externas
+            </h1>
+
+            <p class="lead">
+              Encontre vagas reais de estágio, jovem aprendiz e oportunidades
+              iniciais em tecnologia. Utilize os filtros para refinar sua busca
+              por área, tipo e localização.
+            </p>
+
+          </div>
+        </div>
+
+        <!-- Filtros -->
+        <div class="filters jobs-filters">
+
+          <input
+            class="filter"
+            id="jobSearch"
+            placeholder="Buscar oportunidade"
+          />
+
+          <input
+            class="filter"
+            id="jobLocation"
+            placeholder="Cidade ou estado"
+          />
+
+          <select class="select" id="typeFilter">
+            <option value="all">
+              Todos os tipos
+            </option>
+
+            <option value="estagio">
+              Estágio
+            </option>
+
+            <option value="aprendiz">
+              Jovem aprendiz
+            </option>
+
+            <option value="junior">
+              Júnior
+            </option>
+          </select>
+
+          <select class="select" id="modeFilter">
+            <option value="all">
+              Todos os focos
+            </option>
+
+            <option value="front-end">
+              Front-end
+            </option>
+
+            <option value="dados">
+              Dados
+            </option>
+
+            <option value="suporte">
+              Suporte
+            </option>
+
+            <option value="qa">
+              QA
+            </option>
+
+            <option value="backend">
+              Back-end
+            </option>
+          </select>
+
+        </div>
+
+        <!-- Grid -->
+        <div class="content-grid" id="jobsGrid">
+        </div>
+
+        <!-- Botão -->
+        <div class="jobs-load-more">
+
+          <button
+            class="btn btn-secondary"
+            id="loadMoreJobs"
+            type="button"
+          >
+            <span
+              class="iconify"
+              data-icon="lucide:plus"
+            ></span>
+
+            Carregar mais vagas
+          </button>
+
+        </div>
+
+        <!-- Empty -->
+        <div class="empty-state hidden" id="emptyJobs">
+
+          <h3>
+            Nenhuma busca encontrada
+          </h3>
+
+          <p class="lead">
+            Tente outro filtro, palavra-chave ou localização.
+          </p>
+
+        </div>
+
+        <!-- Dica -->
+        <article class="card" style="margin-top:18px">
+
+          <div class="panel-title">
+            <h2>
+              Dica para buscar melhor
+            </h2>
+          </div>
+
+          <p class="lead" style="font-size:14px;line-height:1.65">
+
+            Pesquise por combinações como
+            “estágio tecnologia”,
+            “jovem aprendiz TI”,
+            “front-end júnior”,
+            “suporte técnico estágio”
+            e
+            “analista de dados estágio”.
+
+            Depois adapte seu currículo com as
+            palavras-chave da vaga.
+
+          </p>
+
+        </article>
+
+      </section>
+
+    </main>
   </div>
+
   <div aria-hidden="true" class="modal">
   </div>
+
   <div class="toast">
   </div>
+
   <script src="../components/sidebar.js">
   </script>
+
   <script src="../components/header.js">
   </script>
-    <script src="../data/courses.js"></script>
-    <script src="../data/jobs.js"></script>
-    <script src="../data/tools.js"></script>
-    <script src="../data/roadmaps.js"></script>
-    <script src="../data/projects.js"></script>
+
+  <script src="../data/courses.js"></script>
+
+  <script src="../data/jobs.js"></script>
+
+  <script src="../data/tools.js"></script>
+
+  <script src="../data/roadmaps.js"></script>
+
+  <script src="../data/projects.js"></script>
+
   <script src="../script.js">
   </script>
- </body>
+
+</body>
+
 </html>

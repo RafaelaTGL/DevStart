@@ -289,47 +289,157 @@ function initCourses() {
   );
 }
 
-function initJobs() {
-  const grid = $('#jobsGrid');
+let currentJobsPage = 1;
+
+async function carregarVagas(reset = false) {
+  const grid = $("#jobsGrid");
 
   if (!grid) return;
 
-  grid.innerHTML = jobs.map(jobCard).join('');
+  const busca = ($("#jobSearch")?.value || "estagio ti").trim();
+  const local = ($("#jobLocation")?.value || "").trim();
 
-  function filter() {
-    const q = ($('#jobSearch')?.value || '').toLowerCase();
-    const type = $('#typeFilter')?.value || 'all';
-    const mode = $('#modeFilter')?.value || 'all';
+  const type = $("#typeFilter")?.value || "all";
+  const mode = $("#modeFilter")?.value || "all";
 
-    let visible = 0;
-
-    $$('.job-card', grid).forEach(card => {
-      const ok =
-        (!q || card.dataset.title.includes(q)) &&
-        (type === 'all' || card.dataset.type === type) &&
-        (mode === 'all' || card.dataset.mode === mode);
-
-      card.style.display = ok ? 'flex' : 'none';
-
-      if (ok) visible++;
-    });
-
-    $('#emptyJobs')?.classList.toggle('hidden', visible > 0);
+  if (reset) {
+    currentJobsPage = 1;
+    grid.innerHTML = "";
   }
 
-  ['input', 'change'].forEach(ev =>
-    [$('#jobSearch'), $('#typeFilter'), $('#modeFilter')].forEach(el =>
-      el && el.addEventListener(ev, filter)
-    )
-  );
+  if (!grid.innerHTML.trim()) {
+    grid.innerHTML = `
+      <p class="lead">
+        Carregando vagas...
+      </p>
+    `;
+  }
+
+  try {
+    const resposta = await fetch(
+      `http://localhost:3000/api/vagas?busca=${encodeURIComponent(
+        busca
+      )}&local=${encodeURIComponent(
+        local
+      )}&page=${currentJobsPage}`
+    );
+
+    const vagas = await resposta.json();
+
+    if (reset) {
+      grid.innerHTML = "";
+    }
+
+    const vagasFiltradas = vagas.filter(vaga => {
+      const texto = `
+        ${vaga.titulo || ""}
+        ${vaga.empresa || ""}
+      `.toLowerCase();
+
+      const okType =
+        type === "all" ||
+        texto.includes(type);
+
+      const okMode =
+        mode === "all" ||
+        texto.includes(mode);
+
+      return okType && okMode;
+    });
+
+    if (!vagasFiltradas.length && currentJobsPage === 1) {
+      grid.innerHTML = "";
+
+      $("#emptyJobs")?.classList.remove("hidden");
+
+      return;
+    }
+
+    $("#emptyJobs")?.classList.add("hidden");
+
+    grid.innerHTML += vagasFiltradas
+      .map(
+        vaga => `
+          <article class="card job-card">
+
+            <div class="feature-icon">
+              ${icon("lucide:briefcase-business")}
+            </div>
+
+            <div class="badge">
+              ${vaga.fonte || "JSearch"}
+            </div>
+
+            <h3>
+              ${vaga.titulo || "Vaga sem título"}
+            </h3>
+
+            <p class="lead" style="font-size:14px;line-height:1.55">
+              ${vaga.empresa || "Empresa não informada"}
+              •
+              ${vaga.local || "Local não informado"}
+            </p>
+
+            <div class="job-meta">
+              <span class="badge">
+                estágio
+              </span>
+
+              <span class="badge">
+                ${vaga.remoto ? "remoto" : "presencial/híbrido"}
+              </span>
+            </div>
+
+            <div class="job-footer">
+              <a
+                class="btn btn-primary"
+                href="${vaga.link}"
+                target="_blank"
+                rel="noopener"
+              >
+                ${icon("lucide:external-link")}
+                Ver vaga
+              </a>
+            </div>
+
+          </article>
+        `
+      )
+      .join("");
+
+    currentJobsPage++;
+  } catch (error) {
+    grid.innerHTML = `
+      <p class="lead">
+        Não foi possível carregar as vagas agora.
+      </p>
+    `;
+  }
 }
 
-function initTools() {
-  const grid = $('#toolsGrid');
+function initJobs() {
+  const grid = $("#jobsGrid");
 
   if (!grid) return;
 
-  grid.innerHTML = tools.map(toolCard).join('');
+  carregarVagas(true);
+
+  $("#loadMoreJobs")?.addEventListener("click", () => {
+    carregarVagas(false);
+  });
+
+  ["input", "change"].forEach(evento => {
+    [
+      $("#jobSearch"),
+      $("#jobLocation"),
+      $("#typeFilter"),
+      $("#modeFilter")
+    ].forEach(el => {
+      el?.addEventListener(evento, () => {
+        carregarVagas(true);
+      });
+    });
+  });
 }
 
 

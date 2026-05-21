@@ -279,7 +279,7 @@ body::after {
 
   border-radius: 0.9rem;
 
-  background: var(--line);
+  background: var(--surface);
 
   display: flex;
   align-items: center;
@@ -972,7 +972,7 @@ from {
   }
 }
 
-@media (max-width:53.75rem) {
+@media (max-width: 53.75rem) {
   .nav-links {
     display: none;
   }
@@ -980,16 +980,34 @@ from {
   .app-shell {
     grid-template-columns: 1fr;
     width: min(100% - 1.5rem, 47.5rem);
+    margin-top: 0.75rem;
+  }
+
+  .topbar {
+    position: sticky !important;
+    top: 0.75rem !important;
+    z-index: 1200;
+    padding: 0.75rem;
+    border-radius: 1.5rem;
+    backdrop-filter: blur(1.25rem);
+    -webkit-backdrop-filter: blur(1.25rem);
   }
 
   .sidebar {
     position: fixed;
     left: 0.75rem;
-    top: 0.75rem;
-    height: calc(100vh - 1.5rem);
-    width: 17.5rem;
+    top: 5.75rem;
+    width: min(82vw, 17.5rem);
+    height: calc(100vh - 6.5rem);
     transform: translateX(-112%);
-    transition: .3s;
+    transition: transform .3s ease;
+    z-index: 1100;
+    overflow-y: auto;
+    border-radius: 1.75rem;
+    padding: 1.125rem;
+    background: rgba(255, 255, 255, .82);
+    backdrop-filter: blur(1.375rem);
+    -webkit-backdrop-filter: blur(1.375rem);
   }
 
   .sidebar.open {
@@ -1001,7 +1019,7 @@ from {
     position: fixed;
     inset: 0;
     background: rgba(17, 24, 39, .26);
-    z-index: 30;
+    z-index: 1000;
     backdrop-filter: blur(0.1875rem);
   }
 
@@ -1009,13 +1027,14 @@ from {
     display: grid;
   }
 
-  .topbar {
-    top: auto;
-  }
-
   .content-grid,
   .grid-3,
   .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-grid,
+  .split {
     grid-template-columns: 1fr;
   }
 
@@ -1105,11 +1124,6 @@ from {
 
 /* Ajustes solicitados */
 
-.topbar {
-  position: relative !important;
-  top: auto !important;
-}
-
 .theme-toggle {
   background: linear-gradient(135deg, rgba(124, 58, 237, .10), rgba(59, 130, 246, .08));
 }
@@ -1190,13 +1204,6 @@ body.dark-mode .lead {
 body.dark-mode .bar-track {
   background: rgba(255, 255, 255, .12);
 }
-
-@media (max-width:53.75rem) {
-  .topbar {
-    top: auto !important;
-  }
-}
-
 
 /* ==================== DASHBOARD ==================== */
 /* Home dashboard refinements */
@@ -1568,4 +1575,34 @@ body.dark-mode .ats-score-ring::after {
 body.dark-mode .project-tags span {
   background: rgba(124, 58, 237, .18);
   color: #C4B5FD;
+}
+
+.jobs-filters {
+  align-items: center;
+}
+
+.jobs-filters .filter,
+.jobs-filters .select {
+  min-height: 3rem;
+}
+
+.jobs-filters .filter {
+  min-width: 13.75rem;
+}
+
+.jobs-load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.375rem;
+  margin-bottom: 1.125rem;
+}
+
+.jobs-load-more .btn {
+  min-width: 13.75rem;
+}
+
+@media (max-width: 35rem) {
+  .jobs-load-more .btn {
+    width: 100%;
+  }
 }
