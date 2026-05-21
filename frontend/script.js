@@ -317,7 +317,7 @@ async function carregarVagas(reset = false) {
 
   try {
     const resposta = await fetch(
-      `http://localhost:3000/api/vagas?busca=${encodeURIComponent(
+      `https://devstart.onrender.com/api/vagas?busca=${encodeURIComponent(
         busca
       )}&local=${encodeURIComponent(
         local
@@ -590,11 +590,11 @@ function initATS() {
   const uploadText = document.querySelector("#uploadText");
 
   inputCurriculo?.addEventListener("change", () => {
-  const arquivo = inputCurriculo.files?.[0];
+    const arquivo = inputCurriculo.files?.[0];
 
-  if (!arquivo) return;
+    if (!arquivo) return;
 
-  uploadText.innerHTML = `
+    uploadText.innerHTML = `
     <span style="
       display:flex;
       align-items:center;
@@ -622,7 +622,7 @@ function initATS() {
       return;
     }
 
-        resultadoATS.innerHTML = `
+    resultadoATS.innerHTML = `
       <article class="ats-loading">
         <div class="ats-spinner"></div>
 
@@ -638,9 +638,9 @@ function initATS() {
 
     try {
       const resposta = await fetch("https://devstart.onrender.com/analisar-curriculo", {
-    method: "POST",
-    body: dados,
-  });
+        method: "POST",
+        body: dados,
+      });
 
       const analise = await resposta.json();
 
@@ -676,8 +676,7 @@ function initATS() {
         </div>
       </div>
 
-      ${
-        analise.compatibilidadeVaga
+      ${analise.compatibilidadeVaga
           ? `
             <div class="ats-compat-box">
               <h3>
@@ -689,7 +688,7 @@ function initATS() {
             </div>
           `
           : ""
-      }
+        }
 
       <div class="ats-result-grid">
         ${renderATSList("Pontos fortes", "lucide:check-circle", analise.pontosFortes)}
@@ -701,7 +700,7 @@ function initATS() {
 
       showToast("Análise ATS concluída!");
     } catch (erro) {
-          resultadoATS.innerHTML = `
+      resultadoATS.innerHTML = `
     <article class="ats-error">
       ${icon("lucide:circle-alert")}
 
@@ -729,11 +728,10 @@ function renderATSList(titulo, icone, lista = []) {
       </h3>
 
       <ul>
-        ${
-          itens.length
-            ? itens.map(item => `<li>${item}</li>`).join("")
-            : "<li>Nenhuma informação retornada.</li>"
-        }
+        ${itens.length
+      ? itens.map(item => `<li>${item}</li>`).join("")
+      : "<li>Nenhuma informação retornada.</li>"
+    }
       </ul>
     </div>
   `;
