@@ -8,6 +8,7 @@
         Contato | DevStart
     </title>
     <link href="../style.css" rel="stylesheet" />
+    <link rel="icon" href="../assets/LogoDS.svg">
     <script src="https://code.iconify.design/3/3.1.1/iconify.min.js">
     </script>
 </head>
@@ -42,19 +43,19 @@
                             <label>
                                 Nome
                             </label>
-                            <input placeholder="Seu nome" />
+                            <input name="nome" placeholder="Seu nome" />
                         </div>
                         <div class="field">
                             <label>
                                 E-mail
                             </label>
-                            <input placeholder="seuemail@email.com" type="email" />
+                            <input name="email" placeholder="seuemail@email.com" type="email" />
                         </div>
                         <div class="field" style="grid-column:1/-1">
                             <label>
                                 Assunto
                             </label>
-                            <select>
+                            <select name="assunto">
                                 <option>
                                     Sugest&atilde;o de curso
                                 </option>
@@ -70,7 +71,7 @@
                             <label>
                                 Mensagem
                             </label>
-                            <textarea placeholder="Escreva sua mensagem"></textarea>
+                            <textarea name="mensagem" placeholder="Escreva sua mensagem"></textarea>
                         </div>
                         <button class="btn btn-primary" style="grid-column:1/-1">
                             <span class="iconify" data-icon="lucide:send">

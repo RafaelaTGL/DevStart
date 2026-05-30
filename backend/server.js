@@ -4,6 +4,7 @@ require("dotenv").config();
 
 const atsRoutes = require("./routes/atsRoutes");
 const jobsRoutes = require("./routes/jobsRoutes");
+const contactRoutes = require("./routes/contactRoutes");
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/", atsRoutes);
 app.use("/", jobsRoutes);
+app.use("/", contactRoutes);
 
 const PORT = process.env.PORT || 3000;
 

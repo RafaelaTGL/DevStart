@@ -797,10 +797,28 @@ function initRoadmap() {
 
 function initForms() {
   $$('form[data-smart-form]').forEach(form =>
-    form.addEventListener('submit', e => {
+    form.addEventListener('submit', async e => {
       e.preventDefault();
-      showToast(form.dataset.success || 'Mensagem enviada com sucesso.');
-      form.reset();
+
+      try {
+        const resposta = await fetch('https://devstart.onrender.com/api/contato', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            nome: form.nome?.value || '',
+            email: form.email?.value || '',
+            assunto: form.assunto?.value || '',
+            mensagem: form.mensagem?.value || ''
+          })
+        });
+
+        if (!resposta.ok) throw new Error();
+
+        showToast(form.dataset.success || 'Mensagem enviada com sucesso.');
+        form.reset();
+      } catch {
+        showToast('Erro ao enviar mensagem.');
+      }
     })
   );
 }
