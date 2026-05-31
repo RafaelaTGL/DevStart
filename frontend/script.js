@@ -801,7 +801,7 @@ function initForms() {
       e.preventDefault();
 
       try {
-        const resposta = await fetch('https://devstart.onrender.com/api/contato', {
+        const resposta = await fetch("https://devstart.onrender.com/api/contato", {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
